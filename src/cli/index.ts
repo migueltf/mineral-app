@@ -174,56 +174,56 @@ program
     })().catch(console.error)
   );
 
-program
-  .command("mine_with_gpu")
-  .description("Start mining ⛏️")
-  .action((_options) =>
-    (async () => {
-      if (!settings.wallet) {
-        return program.error(SETUP_PROMPT);
-      }
-      const bal = await settings.rpc.getBalance({
-        owner: settings.wallet.toSuiAddress(),
-        coinType: SUI_TYPE_ARG,
-      });
-      if (Number(bal.totalBalance) < 0.1) {
-        console.log(
-          chalk.red("Low balance"),
-          "in wallet",
-          settings.wallet.toSuiAddress()
-        );
-        console.log("Send some SUI to this wallet to enable mining.");
-      }
+// program
+//   .command("mine_with_gpu")
+//   .description("Start mining ⛏️")
+//   .action((_options) =>
+//     (async () => {
+//       if (!settings.wallet) {
+//         return program.error(SETUP_PROMPT);
+//       }
+//       const bal = await settings.rpc.getBalance({
+//         owner: settings.wallet.toSuiAddress(),
+//         coinType: SUI_TYPE_ARG,
+//       });
+//       if (Number(bal.totalBalance) < 0.1) {
+//         console.log(
+//           chalk.red("Low balance"),
+//           "in wallet",
+//           settings.wallet.toSuiAddress()
+//         );
+//         console.log("Send some SUI to this wallet to enable mining.");
+//       }
 
-      if (Date.now() < START_TIME) {
-        return program.error("⚠️  Mining has not started yet!");
-      }
+//       if (Date.now() < START_TIME) {
+//         return program.error("⚠️  Mining has not started yet!");
+//       }
 
-      console.error(
-        chalk.green("Mining with wallet:"),
-        settings.wallet.toSuiAddress()
-      );
-      const minerAccount = await getOrCreateMiner(
-        settings.wallet,
-        settings.rpc
-      );
-      const bus = await fetchBus(settings.rpc);
+//       console.error(
+//         chalk.green("Mining with wallet:"),
+//         settings.wallet.toSuiAddress()
+//       );
+//       const minerAccount = await getOrCreateMiner(
+//         settings.wallet,
+//         settings.rpc
+//       );
+//       const bus = await fetchBus(settings.rpc);
 
-      if (!minerAccount) {
-        return program.error("Miner account not created!");
-      }
-      const gpu = new GPU({ mode: 'cpu' });
-      const multiplyRunner = gpu.createKernel(
-        runner
-      );
-      multiplyRunner(
-        settings.rpc,
-        bus.difficulty,
-        settings.wallet,
-        minerAccount,
-        console.log
-      );
-    })().catch(console.error)
-  );
+//       if (!minerAccount) {
+//         return program.error("Miner account not created!");
+//       }
+//       const gpu = new GPU({ mode: 'cpu' });
+//       const multiplyRunner = gpu.createKernel(
+//         runner
+//       );
+//       multiplyRunner(
+//         settings.rpc,
+//         bus.difficulty,
+//         settings.wallet,
+//         minerAccount,
+//         console.log
+//       );
+//     })().catch(console.error)
+//   );
 
 program.parse(process.argv);
