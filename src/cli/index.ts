@@ -174,7 +174,7 @@ program
     })().catch(console.error)
   );
 
-  program
+program
   .command("mine_with_gpu")
   .description("Start mining ⛏️")
   .action((_options) =>
