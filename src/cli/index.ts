@@ -15,8 +15,8 @@ import { decodeSuiPrivateKey } from "@mysten/sui.js/cryptography";
 import { SuiClient, getFullnodeUrl } from "@mysten/sui.js/client";
 import { Ed25519Keypair } from "@mysten/sui.js/keypairs/ed25519";
 import { SUI_TYPE_ARG, SUI_DECIMALS } from "@mysten/sui.js/utils";
+import { GPU } from "gpu.js";
 import chalk from "chalk";
-import { GPU } from 'gpu.js';
 
 const { WALLET, RPC } = process.env;
 
